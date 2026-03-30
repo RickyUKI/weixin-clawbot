@@ -205,7 +205,7 @@ export const weixinJsPlugin = {
         await new Promise((resolve) => {
           qrterm.default.generate(startResult.qrcodeUrl, { small: true }, (qr) => {
             console.log(qr);
-            log(`如果二维码无法显示，请用浏览器打开：${startResult.qrcodeUrl}`);
+            console.log(`如果二维码无法显示，请用浏览器打开：${startResult.qrcodeUrl}`);
             resolve();
           });
         });
