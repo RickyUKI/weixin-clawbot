@@ -1,0 +1,11 @@
+{
+  "name": "weixin-clawbot",
+  "version": "1.0.0",
+  "description": "Personal WeChat channel plugin for OpenClaw (pure JS)",
+  "type": "module",
+  "main": "index.js",
+  "openclaw": {
+    "extensions": ["./index.js"]
+  },
+  "license": "MIT"
+}

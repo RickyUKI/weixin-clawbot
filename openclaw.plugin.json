@@ -1,0 +1,12 @@
+{
+  "id": "weixin-clawbot",
+  "version": "1.0.0",
+  "name": "微信 Clawbot",
+  "description": "Personal WeChat channel plugin (pure JS, QR login, long-poll getUpdates)",
+  "channels": ["weixin-clawbot"],
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}
