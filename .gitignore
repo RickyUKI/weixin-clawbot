@@ -1,0 +1,5 @@
+node_modules/
+*.sync.json
+*.context-tokens.json
+accounts.json
+accounts/
