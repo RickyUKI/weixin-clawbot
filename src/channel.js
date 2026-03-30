@@ -184,9 +184,9 @@ export const weixinJsPlugin = {
   auth: {
     login: async ({ cfg, accountId, verbose, runtime }) => {
       const account = resolveAccount(cfg, accountId);
-      const log = (msg) => { runtime?.log?.(msg); console.log(msg); };
+      const print = (msg) => console.log(msg);
 
-      log("正在启动微信扫码登录...");
+      print("正在启动微信扫码登录...");
       const startResult = await startLoginWithQr({
         accountId: account.accountId,
         apiBaseUrl: account.baseUrl,
@@ -195,25 +195,25 @@ export const weixinJsPlugin = {
       });
 
       if (!startResult.qrcodeUrl) {
-        log(startResult.message);
+        print(startResult.message);
         throw new Error(startResult.message);
       }
 
-      log("\n使用微信扫描以下二维码完成连接：\n");
       try {
         const qrterm = await import("qrcode-terminal");
         await new Promise((resolve) => {
           qrterm.default.generate(startResult.qrcodeUrl, { small: true }, (qr) => {
-            console.log(qr);
-            console.log(`如果二维码无法显示，请用浏览器打开：${startResult.qrcodeUrl}`);
+            print("\n使用微信扫描以下二维码完成连接：\n");
+            print(qr);
+            print(`如果二维码无法显示，请用浏览器打开：${startResult.qrcodeUrl}`);
             resolve();
           });
         });
       } catch {
-        log(`请用浏览器打开以下链接扫码：\n${startResult.qrcodeUrl}`);
+        print(`\n使用微信扫描以下链接完成连接：\n${startResult.qrcodeUrl}`);
       }
 
-      log("\n等待扫码结果...\n");
+      print("\n等待扫码结果...\n");
       const waitResult = await waitForQrLogin({
         sessionKey: startResult.sessionKey,
         apiBaseUrl: account.baseUrl,
@@ -231,7 +231,7 @@ export const weixinJsPlugin = {
         if (waitResult.userId) {
           clearStaleAccountsForUserId(normalizedId, waitResult.userId, clearContextTokensForAccount);
         }
-        log("\n✅ 与微信连接成功！重启 Gateway 使其生效：openclaw gateway restart");
+        print("\n✅ 与微信连接成功！重启 Gateway 使其生效：openclaw gateway restart");
       } else {
         throw new Error(waitResult.message);
       }
